@@ -1,119 +1,141 @@
 /* ============================================================================
-   Disguise stylesheet
+   Disguise stylesheet — makes instagram.com read like a LinkedIn-style feed.
    All rules are gated behind `html.ciq-on` so the disguise can be toggled
-   on/off live (content.js adds/removes that class). When the disguise is
-   off, NONE of this applies and Instagram looks completely normal.
-   Instagram's real class names are hashed and change constantly, so we only
-   target stable, semantic selectors (aria-labels, hrefs, roles).
+   on/off live. Instagram's real class names are hashed and change constantly,
+   so we only target stable, semantic selectors (the <article> tag, aria-labels,
+   hrefs, roles, <canvas> story rings).
    ============================================================================ */
 
-/* --- Make room for our fixed corporate top bar --- */
-html.ciq-on body {
-  padding-top: 50px !important;
-}
+/* --- Make room for our fixed LinkedIn-style top bar --- */
+html.ciq-on body { padding-top: 52px !important; }
+
+/* --- LinkedIn's signature warm-gray page background --- */
+html.ciq-on,
+html.ciq-on body,
+html.ciq-on main,
+html.ciq-on [role="main"],
+html.ciq-on section { background: #f4f2ee !important; }
 
 /* --- Hide the Instagram wordmark / logo everywhere it appears --- */
 html.ciq-on svg[aria-label="Instagram"],
-html.ciq-on a[href="/"] img[alt*="Instagram" i] {
-  visibility: hidden !important;
+html.ciq-on a[href="/"] img[alt*="Instagram" i] { visibility: hidden !important; }
+
+/* --- Tone down the brand-color story-ring gradients --- */
+html.ciq-on canvas { filter: saturate(0.45) !important; }
+
+/* --- Turn each feed post into a LinkedIn-style white card.
+       <article> is one of the few stable selectors Instagram still uses. --- */
+html.ciq-on article {
+  background: #ffffff !important;
+  border: 1px solid #e3e1dd !important;
+  border-radius: 10px !important;
+  box-shadow: 0 0 0 1px rgba(0,0,0,.02), 0 2px 5px rgba(0,0,0,.05) !important;
+  margin: 0 auto 10px !important;
+  overflow: hidden !important;
 }
 
-/* --- Tone down the most recognizable brand color: the story-ring gradient,
-       "New post" gradient, etc. We desaturate decorative gradients only.
-       (Photos/videos are handled separately via the optional mute toggle.) --- */
-html.ciq-on canvas {
-  filter: saturate(0.4) !important;
-}
-
-/* --- Optional: mute the photos/videos in the feed so the grid of vivid
-       images doesn't scream "social media" at a distance. Toggled via the
-       popup; adds/removes html.ciq-mute. --- */
+/* --- Optional: mute the photos/videos so the vivid grid is less obvious.
+       Toggled via the popup (html.ciq-mute). Hover to reveal full color. --- */
 html.ciq-mute img:not([alt*="profile picture" i]),
 html.ciq-mute video {
   filter: saturate(0.45) contrast(0.96) brightness(0.99) !important;
   transition: filter 0.15s ease !important;
 }
-/* Reveal full color on hover so you can actually look when you want to */
 html.ciq-mute img:hover,
-html.ciq-mute video:hover {
-  filter: none !important;
+html.ciq-mute video:hover { filter: none !important; }
+
+/* --- Compact stories tray (LinkedIn has no stories, so shrinking it helps).
+       content.js tags the tray with .ciq-stories; this shrinks the rings. --- */
+html.ciq-stories-sm .ciq-stories canvas,
+html.ciq-stories-sm .ciq-stories img {
+  width: 44px !important;
+  height: 44px !important;
+}
+html.ciq-stories-sm .ciq-stories {
+  opacity: 0.92 !important;
 }
 
-/* --- Frame the main feed column like a dashboard "report panel" --- */
-html.ciq-on main {
-  background: #ffffff !important;
-}
-
-/* --- Our injected top bar --- */
+/* ============================================================================
+   Injected top bar — styled to look like LinkedIn's global navigation.
+   ============================================================================ */
 #ciq-topbar {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  height: 50px;
-  background: #1a1f36;
-  color: #c8cee4;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 0 18px;
+  position: fixed; top: 0; left: 0; right: 0; height: 52px;
+  background: #ffffff; border-bottom: 1px solid #e6e6e6;
+  display: flex; align-items: center; gap: 12px; padding: 0 16px;
   z-index: 2147483646;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: 13px;
-  box-shadow: 0 1px 4px rgba(0,0,0,.18);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  box-shadow: 0 1px 2px rgba(0,0,0,.06);
   user-select: none;
 }
-#ciq-topbar .ciq-logo {
-  display: flex; align-items: center; gap: 9px; font-weight: 700; color: #fff; letter-spacing: -.2px;
+#ciq-topbar .li-logo {
+  width: 34px; height: 34px; border-radius: 8px; background: #0a66c2; color: #fff;
+  font-weight: 800; font-size: 19px; line-height: 1;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  font-family: Georgia, "Times New Roman", serif;
 }
-#ciq-topbar .ciq-logo svg { width: 22px; height: 22px; }
-#ciq-topbar .ciq-crumb { color: #6b7aaa; font-size: 12px; }
-#ciq-topbar .ciq-crumb b { color: #aab2d4; font-weight: 600; }
-#ciq-topbar .ciq-spacer { flex: 1; }
-#ciq-topbar .ciq-pill {
-  font-size: 11px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.08);
-  padding: 4px 10px; border-radius: 6px; color: #9aa4c8;
+#ciq-topbar .li-search {
+  display: flex; align-items: center; gap: 8px; background: #edf3f8; border-radius: 6px;
+  height: 34px; padding: 0 12px; width: 200px; color: #56687a; font-size: 13px; flex-shrink: 0;
 }
-#ciq-topbar .ciq-clock { font-variant-numeric: tabular-nums; font-size: 12px; color: #aab2d4; }
+#ciq-topbar .li-search svg { width: 15px; height: 15px; opacity: .65; }
+#ciq-topbar .li-spacer { flex: 1; }
+#ciq-topbar .li-nav {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px;
+  color: #666; font-size: 11px; min-width: 62px; height: 52px; cursor: default; position: relative;
+}
+#ciq-topbar .li-nav svg { width: 21px; height: 21px; }
+#ciq-topbar .li-nav.active { color: #191919; }
+#ciq-topbar .li-nav.active::after {
+  content: ""; position: absolute; bottom: 0; left: 10px; right: 10px; height: 2px; background: #191919;
+}
+#ciq-topbar .li-divider { width: 1px; height: 30px; background: #e6e6e6; margin: 0 2px; }
+#ciq-topbar .li-me .li-av {
+  width: 24px; height: 24px; border-radius: 50%;
+  background: linear-gradient(135deg,#667eea,#0a66c2); color: #fff;
+  display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600;
+}
+#ciq-topbar .ciq-clock { font-size: 12px; color: #aaa; font-variant-numeric: tabular-nums; margin-left: 2px; }
 #ciq-topbar .ciq-min {
-  cursor: pointer; width: 28px; height: 28px; border-radius: 6px; display: flex;
-  align-items: center; justify-content: center; color: #9aa4c8; background: rgba(255,255,255,.05);
-  border: 1px solid rgba(255,255,255,.08); font-size: 14px;
+  margin-left: 4px; cursor: pointer; color: #999; font-size: 15px;
+  width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; border-radius: 5px;
 }
-#ciq-topbar .ciq-min:hover { background: rgba(255,255,255,.12); color: #fff; }
-#ciq-topbar .ciq-avatar {
-  width: 28px; height: 28px; border-radius: 50%;
-  background: linear-gradient(135deg,#667eea,#4361ee); color:#fff;
-  display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:600;
-}
+#ciq-topbar .ciq-min:hover { background: #f0f0f0; color: #444; }
 
-/* --- Panic cover: a fake "report is generating" screen --- */
+/* ============================================================================
+   Panic cover: a fake "report is generating" screen (boss key / auto-hide).
+   ============================================================================ */
+.ciq-logo { display: flex; align-items: center; gap: 9px; font-weight: 700; }
+.ciq-logo svg { width: 22px; height: 22px; }
 #ciq-panic {
   position: fixed; inset: 0; z-index: 2147483647;
-  background: #f4f5f7;
-  display: none;
+  background: #f4f5f7; display: none;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  color: #1a1f36;
-  flex-direction: column;
+  color: #1a1f36; flex-direction: column;
 }
 #ciq-panic.show { display: flex; }
 #ciq-panic .pc-top {
   height: 50px; background: #1a1f36; display: flex; align-items: center; gap: 14px;
   padding: 0 18px; color: #c8cee4;
 }
-#ciq-panic .pc-top .ciq-logo { display:flex; align-items:center; gap:9px; font-weight:700; color:#fff; }
-#ciq-panic .pc-top .ciq-logo svg { width:22px; height:22px; }
-#ciq-panic .pc-body { flex:1; display:flex; }
-#ciq-panic .pc-side { width: 210px; background:#fff; border-right:1px solid #e5e7eb; padding:16px 0; }
-#ciq-panic .pc-side .pc-nav { height:13px; margin:0 16px 14px; background:#eef0f4; border-radius:4px; }
-#ciq-panic .pc-side .pc-nav.w1{width:60%} #ciq-panic .pc-side .pc-nav.w2{width:80%}
-#ciq-panic .pc-side .pc-nav.w3{width:45%} #ciq-panic .pc-side .pc-nav.w4{width:70%}
-#ciq-panic .pc-main { flex:1; padding:28px; }
-#ciq-panic .pc-kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:22px; }
-#ciq-panic .pc-kpi { background:#fff; border:1px solid #e5e7eb; border-radius:10px; height:84px; padding:16px; }
-#ciq-panic .pc-kpi .b1{width:50%;height:10px;background:#eef0f4;border-radius:4px;margin-bottom:12px}
-#ciq-panic .pc-kpi .b2{width:70%;height:22px;background:#e7eafc;border-radius:5px}
-#ciq-panic .pc-chart { background:#fff; border:1px solid #e5e7eb; border-radius:10px; height:240px;
-  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; color:#6b7280; font-size:14px; }
-#ciq-panic .pc-spin { width:30px; height:30px; border:3px solid #e5e7eb; border-top-color:#4361ee;
-  border-radius:50%; animation: ciq-spin .7s linear infinite; }
+#ciq-panic .pc-top .ciq-logo { color: #fff; }
+#ciq-panic .pc-body { flex: 1; display: flex; }
+#ciq-panic .pc-side { width: 210px; background: #fff; border-right: 1px solid #e5e7eb; padding: 16px 0; }
+#ciq-panic .pc-side .pc-nav { height: 13px; margin: 0 16px 14px; background: #eef0f4; border-radius: 4px; }
+#ciq-panic .pc-side .pc-nav.w1 { width: 60%; } #ciq-panic .pc-side .pc-nav.w2 { width: 80%; }
+#ciq-panic .pc-side .pc-nav.w3 { width: 45%; } #ciq-panic .pc-side .pc-nav.w4 { width: 70%; }
+#ciq-panic .pc-main { flex: 1; padding: 28px; }
+#ciq-panic .pc-kpis { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-bottom: 22px; }
+#ciq-panic .pc-kpi { background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; height: 84px; padding: 16px; }
+#ciq-panic .pc-kpi .b1 { width: 50%; height: 10px; background: #eef0f4; border-radius: 4px; margin-bottom: 12px; }
+#ciq-panic .pc-kpi .b2 { width: 70%; height: 22px; background: #e7eafc; border-radius: 5px; }
+#ciq-panic .pc-chart {
+  background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; height: 240px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
+  color: #6b7280; font-size: 14px;
+}
+#ciq-panic .pc-spin {
+  width: 30px; height: 30px; border: 3px solid #e5e7eb; border-top-color: #4361ee;
+  border-radius: 50%; animation: ciq-spin .7s linear infinite;
+}
 @keyframes ciq-spin { to { transform: rotate(360deg); } }
-#ciq-panic .pc-hint { position:absolute; bottom:14px; right:18px; font-size:11px; color:#9ca3af; }
+#ciq-panic .pc-hint { position: absolute; bottom: 14px; right: 18px; font-size: 11px; color: #9ca3af; }

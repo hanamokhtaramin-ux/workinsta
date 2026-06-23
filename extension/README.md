@@ -19,7 +19,10 @@ restyles the page you're already viewing.
 - **Swaps the tab title & favicon** → the tab reads "Analytics – Performance"
   with a chart icon (the most important disguise: it's what people see in your
   tab bar). The title is editable in the popup, so set it to whatever blends in.
-- **Injects a corporate top bar** with a fake breadcrumb, live-sync pill, and clock.
+- **Injects a LinkedIn-style top nav** (blue `in` logo, search pill, Home /
+  My Network / Jobs / Messaging / Notifications, "Me" menu).
+- **LinkedIn look** → warm-gray page background with white rounded post cards.
+- **Compact stories** → shrinks the stories tray (LinkedIn has none), toggleable.
 - **Hides the Instagram logo** and tones down the brand-color gradients.
 - **Optional "Mute photos"** → desaturates feed images so the wall of vivid
   pictures doesn't stand out; hover any image to see it in full color.

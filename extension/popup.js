@@ -6,10 +6,11 @@ const DEFAULTS = {
   disguise: true,
   mutePhotos: false,
   autoBlur: false,
+  shrinkStories: true,
   tabTitle: "Analytics – Performance",
 };
 
-const toggles = ["disguise", "mutePhotos", "autoBlur"];
+const toggles = ["disguise", "mutePhotos", "autoBlur", "shrinkStories"];
 
 // Load current settings into the UI.
 chrome.storage.local.get(DEFAULTS, (cfg) => {
