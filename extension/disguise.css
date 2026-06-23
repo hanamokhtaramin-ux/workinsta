@@ -34,7 +34,7 @@ html.ciq-on article {
   overflow: hidden !important;
   /* zoom shrinks the whole card proportionally and reflows layout (no gaps),
      unlike transform. Chrome/Edge support it well. */
-  zoom: 0.8 !important;
+  zoom: 0.68 !important;
 }
 
 /* --- Optional: mute the photos/videos so the vivid grid is less obvious.
@@ -51,8 +51,8 @@ html.ciq-mute video:hover { filter: none !important; }
        content.js tags the tray with .ciq-stories; this shrinks the rings. --- */
 html.ciq-stories-sm .ciq-stories canvas,
 html.ciq-stories-sm .ciq-stories img {
-  width: 34px !important;
-  height: 34px !important;
+  width: 28px !important;
+  height: 28px !important;
 }
 html.ciq-stories-sm .ciq-stories {
   opacity: 0.92 !important;
