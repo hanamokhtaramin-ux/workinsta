@@ -1,5 +1,5 @@
 /* ============================================================================
-   ContentIQ content script
+   Disguise content script
    Runs on instagram.com (your own browser, your own logged-in session).
    It does NOT touch your credentials, send data anywhere, or talk to any
    server. It only restyles the page you're already looking at:
@@ -18,7 +18,7 @@
     disguise: true,
     mutePhotos: false,
     autoBlur: false,
-    tabTitle: "Q2 Performance — ContentIQ",
+    tabTitle: "Analytics – Performance",
   };
 
   let cfg = { ...DEFAULTS };
@@ -58,8 +58,8 @@
     const bar = document.createElement("div");
     bar.id = "ciq-topbar";
     bar.innerHTML =
-      '<div class="ciq-logo">' + LOGO_SVG + "<span>ContentIQ</span></div>" +
-      '<div class="ciq-crumb">Instagram <b>›</b> Audience <b>›</b> Live Feed</div>' +
+      '<div class="ciq-logo">' + LOGO_SVG + "</div>" +
+      '<div class="ciq-crumb">Reports <b>›</b> Audience <b>›</b> Engagement</div>' +
       '<div class="ciq-spacer"></div>' +
       '<div class="ciq-pill">Live sync ●</div>' +
       '<div class="ciq-clock" id="ciq-clock">--:--</div>' +
@@ -89,8 +89,7 @@
     const p = document.createElement("div");
     p.id = "ciq-panic";
     p.innerHTML =
-      '<div class="pc-top"><div class="ciq-logo">' + LOGO_SVG +
-      "<span>ContentIQ</span></div></div>" +
+      '<div class="pc-top"><div class="ciq-logo">' + LOGO_SVG + "</div></div>" +
       '<div class="pc-body">' +
       '<div class="pc-side"><div class="pc-nav w2"></div><div class="pc-nav w1"></div>' +
       '<div class="pc-nav w4"></div><div class="pc-nav w3"></div><div class="pc-nav w2"></div>' +

@@ -1,5 +1,5 @@
 /* ============================================================================
-   ContentIQ disguise stylesheet
+   Disguise stylesheet
    All rules are gated behind `html.ciq-on` so the disguise can be toggled
    on/off live (content.js adds/removes that class). When the disguise is
    off, NONE of this applies and Instagram looks completely normal.

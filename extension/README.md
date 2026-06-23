@@ -1,9 +1,9 @@
-# ContentIQ — Instagram "work mode" disguise
+# Instagram "work mode" disguise
 
-A small browser extension that **reskins instagram.com to look like a corporate
-analytics dashboard** while you stay logged into your own account in your own
-browser. You get your real personal feed; a glance over your shoulder reads
-"boring work tool."
+A small browser extension that **reskins instagram.com to look like a plain
+internal analytics dashboard** while you stay logged into your own account in
+your own browser. You get your real personal feed; a glance over your shoulder
+reads like a routine reporting tool.
 
 ## Why an extension (and not a website)
 
@@ -16,9 +16,9 @@ restyles the page you're already viewing.
 
 ## What it does
 
-- **Swaps the tab title & favicon** → the tab reads "Q2 Performance — ContentIQ"
+- **Swaps the tab title & favicon** → the tab reads "Analytics – Performance"
   with a chart icon (the most important disguise: it's what people see in your
-  tab bar).
+  tab bar). The title is editable in the popup, so set it to whatever blends in.
 - **Injects a corporate top bar** with a fake breadcrumb, live-sync pill, and clock.
 - **Hides the Instagram logo** and tones down the brand-color gradients.
 - **Optional "Mute photos"** → desaturates feed images so the wall of vivid
@@ -39,8 +39,8 @@ All toggles live in the popup and apply instantly — no page reload needed.
 5. Open `instagram.com` — you're in "work mode." Click the extension icon to
    adjust settings.
 
-> Tip: pin the extension and rename nothing — the popup already presents itself
-> as "ContentIQ Performance Dashboard."
+> Tip: open the popup and set the **tab title** to match whatever you'd
+> plausibly have open at work (e.g. your company's reporting tool).
 
 ## Notes / limits
 

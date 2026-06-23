@@ -6,7 +6,7 @@ const DEFAULTS = {
   disguise: true,
   mutePhotos: false,
   autoBlur: false,
-  tabTitle: "Q2 Performance — ContentIQ",
+  tabTitle: "Analytics – Performance",
 };
 
 const toggles = ["disguise", "mutePhotos", "autoBlur"];
