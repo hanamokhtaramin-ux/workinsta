@@ -1,0 +1,119 @@
+/* ============================================================================
+   ContentIQ disguise stylesheet
+   All rules are gated behind `html.ciq-on` so the disguise can be toggled
+   on/off live (content.js adds/removes that class). When the disguise is
+   off, NONE of this applies and Instagram looks completely normal.
+   Instagram's real class names are hashed and change constantly, so we only
+   target stable, semantic selectors (aria-labels, hrefs, roles).
+   ============================================================================ */
+
+/* --- Make room for our fixed corporate top bar --- */
+html.ciq-on body {
+  padding-top: 50px !important;
+}
+
+/* --- Hide the Instagram wordmark / logo everywhere it appears --- */
+html.ciq-on svg[aria-label="Instagram"],
+html.ciq-on a[href="/"] img[alt*="Instagram" i] {
+  visibility: hidden !important;
+}
+
+/* --- Tone down the most recognizable brand color: the story-ring gradient,
+       "New post" gradient, etc. We desaturate decorative gradients only.
+       (Photos/videos are handled separately via the optional mute toggle.) --- */
+html.ciq-on canvas {
+  filter: saturate(0.4) !important;
+}
+
+/* --- Optional: mute the photos/videos in the feed so the grid of vivid
+       images doesn't scream "social media" at a distance. Toggled via the
+       popup; adds/removes html.ciq-mute. --- */
+html.ciq-mute img:not([alt*="profile picture" i]),
+html.ciq-mute video {
+  filter: saturate(0.45) contrast(0.96) brightness(0.99) !important;
+  transition: filter 0.15s ease !important;
+}
+/* Reveal full color on hover so you can actually look when you want to */
+html.ciq-mute img:hover,
+html.ciq-mute video:hover {
+  filter: none !important;
+}
+
+/* --- Frame the main feed column like a dashboard "report panel" --- */
+html.ciq-on main {
+  background: #ffffff !important;
+}
+
+/* --- Our injected top bar --- */
+#ciq-topbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 50px;
+  background: #1a1f36;
+  color: #c8cee4;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 18px;
+  z-index: 2147483646;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 13px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.18);
+  user-select: none;
+}
+#ciq-topbar .ciq-logo {
+  display: flex; align-items: center; gap: 9px; font-weight: 700; color: #fff; letter-spacing: -.2px;
+}
+#ciq-topbar .ciq-logo svg { width: 22px; height: 22px; }
+#ciq-topbar .ciq-crumb { color: #6b7aaa; font-size: 12px; }
+#ciq-topbar .ciq-crumb b { color: #aab2d4; font-weight: 600; }
+#ciq-topbar .ciq-spacer { flex: 1; }
+#ciq-topbar .ciq-pill {
+  font-size: 11px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.08);
+  padding: 4px 10px; border-radius: 6px; color: #9aa4c8;
+}
+#ciq-topbar .ciq-clock { font-variant-numeric: tabular-nums; font-size: 12px; color: #aab2d4; }
+#ciq-topbar .ciq-min {
+  cursor: pointer; width: 28px; height: 28px; border-radius: 6px; display: flex;
+  align-items: center; justify-content: center; color: #9aa4c8; background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.08); font-size: 14px;
+}
+#ciq-topbar .ciq-min:hover { background: rgba(255,255,255,.12); color: #fff; }
+#ciq-topbar .ciq-avatar {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: linear-gradient(135deg,#667eea,#4361ee); color:#fff;
+  display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:600;
+}
+
+/* --- Panic cover: a fake "report is generating" screen --- */
+#ciq-panic {
+  position: fixed; inset: 0; z-index: 2147483647;
+  background: #f4f5f7;
+  display: none;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #1a1f36;
+  flex-direction: column;
+}
+#ciq-panic.show { display: flex; }
+#ciq-panic .pc-top {
+  height: 50px; background: #1a1f36; display: flex; align-items: center; gap: 14px;
+  padding: 0 18px; color: #c8cee4;
+}
+#ciq-panic .pc-top .ciq-logo { display:flex; align-items:center; gap:9px; font-weight:700; color:#fff; }
+#ciq-panic .pc-top .ciq-logo svg { width:22px; height:22px; }
+#ciq-panic .pc-body { flex:1; display:flex; }
+#ciq-panic .pc-side { width: 210px; background:#fff; border-right:1px solid #e5e7eb; padding:16px 0; }
+#ciq-panic .pc-side .pc-nav { height:13px; margin:0 16px 14px; background:#eef0f4; border-radius:4px; }
+#ciq-panic .pc-side .pc-nav.w1{width:60%} #ciq-panic .pc-side .pc-nav.w2{width:80%}
+#ciq-panic .pc-side .pc-nav.w3{width:45%} #ciq-panic .pc-side .pc-nav.w4{width:70%}
+#ciq-panic .pc-main { flex:1; padding:28px; }
+#ciq-panic .pc-kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:22px; }
+#ciq-panic .pc-kpi { background:#fff; border:1px solid #e5e7eb; border-radius:10px; height:84px; padding:16px; }
+#ciq-panic .pc-kpi .b1{width:50%;height:10px;background:#eef0f4;border-radius:4px;margin-bottom:12px}
+#ciq-panic .pc-kpi .b2{width:70%;height:22px;background:#e7eafc;border-radius:5px}
+#ciq-panic .pc-chart { background:#fff; border:1px solid #e5e7eb; border-radius:10px; height:240px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; color:#6b7280; font-size:14px; }
+#ciq-panic .pc-spin { width:30px; height:30px; border:3px solid #e5e7eb; border-top-color:#4361ee;
+  border-radius:50%; animation: ciq-spin .7s linear infinite; }
+@keyframes ciq-spin { to { transform: rotate(360deg); } }
+#ciq-panic .pc-hint { position:absolute; bottom:14px; right:18px; font-size:11px; color:#9ca3af; }

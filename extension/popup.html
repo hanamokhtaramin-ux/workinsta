@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<style>
+  body { width: 290px; margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #1a1f36; background: #fff; }
+  .hdr { background: #1a1f36; color: #fff; padding: 14px 16px; display: flex; align-items: center; gap: 10px; }
+  .hdr svg { width: 24px; height: 24px; }
+  .hdr b { font-size: 15px; letter-spacing: -.2px; }
+  .hdr small { display: block; font-size: 10px; color: #7b86b0; font-weight: 400; }
+  .body { padding: 14px 16px 18px; }
+  .row { display: flex; align-items: center; justify-content: space-between; padding: 11px 0; border-bottom: 1px solid #eef0f4; }
+  .row:last-of-type { border-bottom: none; }
+  .row .lbl { font-size: 13px; font-weight: 500; }
+  .row .desc { font-size: 11px; color: #9097a8; margin-top: 2px; max-width: 180px; }
+  /* toggle */
+  .sw { position: relative; width: 38px; height: 22px; flex-shrink: 0; }
+  .sw input { opacity: 0; width: 0; height: 0; }
+  .sw .track { position: absolute; inset: 0; background: #d4d8e2; border-radius: 22px; transition: .2s; cursor: pointer; }
+  .sw .track::before { content: ""; position: absolute; height: 16px; width: 16px; left: 3px; top: 3px; background: #fff; border-radius: 50%; transition: .2s; }
+  .sw input:checked + .track { background: #4361ee; }
+  .sw input:checked + .track::before { transform: translateX(16px); }
+  .field { margin: 6px 0 2px; }
+  .field label { font-size: 11px; color: #6b7280; display: block; margin-bottom: 5px; }
+  .field input { width: 100%; box-sizing: border-box; font-size: 13px; padding: 8px 10px; border: 1px solid #e5e7eb; border-radius: 7px; outline: none; }
+  .field input:focus { border-color: #4361ee; }
+  .panic { width: 100%; margin-top: 14px; background: #1a1f36; color: #fff; border: none; border-radius: 8px; padding: 10px; font-size: 13px; font-weight: 600; cursor: pointer; }
+  .panic:hover { background: #2a3150; }
+  .hint { font-size: 11px; color: #9097a8; margin-top: 10px; line-height: 1.5; }
+  .hint kbd { background: #f1f2f6; border: 1px solid #dfe2ea; border-radius: 4px; padding: 1px 5px; font-size: 10px; font-family: ui-monospace, monospace; }
+  .note { background: #f7f8fb; border: 1px solid #eef0f4; border-radius: 8px; padding: 9px 11px; font-size: 11px; color: #6b7280; margin-top: 12px; line-height: 1.45; }
+</style>
+</head>
+<body>
+  <div class="hdr">
+    <svg viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#4361ee"/><path d="M7 22 L13 14 L17 18 L25 8" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div><b>ContentIQ</b><small>Performance Dashboard</small></div>
+  </div>
+  <div class="body">
+
+    <div class="row">
+      <div><div class="lbl">Disguise mode</div><div class="desc">Restyle the page, swap tab title & icon</div></div>
+      <label class="sw"><input type="checkbox" id="disguise" /><span class="track"></span></label>
+    </div>
+
+    <div class="row">
+      <div><div class="lbl">Mute photos</div><div class="desc">Desaturate images; hover to reveal color</div></div>
+      <label class="sw"><input type="checkbox" id="mutePhotos" /><span class="track"></span></label>
+    </div>
+
+    <div class="row">
+      <div><div class="lbl">Auto-hide on switch</div><div class="desc">Cover screen when you change tab/window</div></div>
+      <label class="sw"><input type="checkbox" id="autoBlur" /><span class="track"></span></label>
+    </div>
+
+    <div class="field">
+      <label for="tabTitle">Browser tab title</label>
+      <input type="text" id="tabTitle" placeholder="Q2 Performance — ContentIQ" />
+    </div>
+
+    <button class="panic" id="panicBtn">▣ Hide now (boss key)</button>
+
+    <div class="hint">
+      Boss key: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Space</kbd> hides instantly anywhere on the page. <kbd>Esc</kbd> resumes.
+    </div>
+
+    <div class="note">
+      This runs entirely in your browser on your own logged-in session. It never sees or sends your password or any data.
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
